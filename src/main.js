@@ -11,6 +11,7 @@ import echarts from 'echarts'
 import ZkTable from 'vue-table-with-tree-grid'
 import {hasPermission} from './utils/permissionDirect'
 const Plugins = [hasPermission]
+
 Plugins.map((plugin) => {
     Vue.use(plugin)
 })
@@ -18,11 +19,13 @@ Vue.use(ZkTable)
 Vue.use(echarts)
 NProgress.configure({ease: 'ease', speed: 500});
 NProgress.configure({minimum: 0.3});
+
+let BASE_API_URL="http://www.localhost:8989/";
+//const BASE_API_URL="https://www.zykhome.club/api/";
+
 Vue.prototype.$http = axios
-
-
-// axios.defaults.baseURL = 'https://www.zykhome.club/api/'
-axios.defaults.baseURL = 'http://www.localhost:8081/'
+Vue.prototype.BASE_API_URL=BASE_API_URL
+axios.defaults.baseURL = BASE_API_URL
 
 //请求拦截器
 axios.interceptors.request.use(config => {
@@ -58,7 +61,6 @@ axios.interceptors.response.use(
 /**
  * 自定义权限指令
  */
-
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 new Vue({

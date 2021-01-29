@@ -115,8 +115,7 @@
 export default {
   data() {
     return {
-      uploadUrl:"http://localhost:8081/system/upload/image",
-      // uploadUrl:'https://www.zykhome.club/api/system/upload/image',
+      uploadUrl:this.BASE_API_URL+"system/upload/image",
       centerDialogVisible: false,
       loading: true,
       total: 0,

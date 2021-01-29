@@ -17,9 +17,9 @@
                     type="success">
             </el-alert>
             <h5 style="margin: 0px;padding: 0px;">基本信息  <div style="float: right;margin-bottom: 10px;vertical-align: center;">
-            <el-button @click="OpenHistory"   size="mini" type="warning">签到记录</el-button>
-                <el-button style="margin-top: 5px;" type="primary"   size="mini" @click="onSubmit" v-if="!reported">立即打卡</el-button>
-                <el-button @click="reset"  size="mini" v-if="!reported">重置</el-button>
+            <el-button @click="OpenHistory"   size="small" type="warning">签到记录</el-button>
+                <el-button style="margin-top: 5px;" type="primary"   size="small" @click="onSubmit" v-if="!reported">立即打卡</el-button>
+                <el-button @click="reset"  size="small" v-if="!reported">重置</el-button>
             </div></h5>
 
             <!--            抽屉-->
@@ -37,9 +37,9 @@
                              <li>打卡时间:{{item.createTime}}</li>
                              <li>健康状况:
                                  <div style="float: right">
-                                       <el-tag v-if="item.situation===0" size="mini" effect="dark" type="success">健康</el-tag>
-                                <el-tag v-else-if="item.situation===1" size="mini" effect="dark" type="danger">发热</el-tag>
-                                <el-tag v-else-if="item.situation===2"  size="mini" effect="dark"  type="warning">其他情况</el-tag>
+                                       <el-tag v-if="item.situation===0" size="small" effect="dark" type="success">健康</el-tag>
+                                <el-tag v-else-if="item.situation===1" size="small" effect="dark" type="danger">发热</el-tag>
+                                <el-tag v-else-if="item.situation===2"  size="small" effect="dark"  type="warning">其他情况</el-tag>
                                  </div>
                              </li>
                          </ul>
@@ -61,7 +61,7 @@
             </el-drawer>
 
             <el-divider></el-divider>
-            <el-form size="mini" label-width="80px">
+            <el-form size="small" label-width="80px">
                 <el-row :gutter="20">
                     <el-col :span="8">
                         <div class="grid-content bg-purple">
@@ -100,7 +100,7 @@
             <h5 style="margin: 0px;padding: 0px;">健康打卡</h5>
 
             <el-divider></el-divider>
-            <el-form  :inline="true" :label-position="'top'" :model="ruleForm" :rules="rules" ref="ruleFormRef" label-width="100px" class="demo-ruleForm">
+            <el-form  size="small" :inline="true" :label-position="'top'" :model="ruleForm" :rules="rules" ref="ruleFormRef" label-width="100px" class="demo-ruleForm">
                 <el-row :gutter="20">
                     <el-col :span="6">
                         <div class="grid-content bg-purple">
@@ -112,7 +112,6 @@
                                         @change="changeProvince"
                                 >
                                     <el-option
-
                                             v-for="item in provinceList"
                                             :key="item.value"
                                             :label="item.label"
@@ -163,7 +162,7 @@
                     <el-col :span="6">
                         <div class="grid-content bg-purple">
                     <el-form-item v-if="reported" label="打卡位置" prop="valueOrigin">
-                        <el-tag size="mini">
+                        <el-tag size="small">
                             {{ruleForm.address}}
                         </el-tag>
                     </el-form-item>
@@ -281,10 +280,10 @@
 
             //打卡历史记录
             async reportHistory(){
-                const { data: res } = await this.$http.get("health/history",{
+                const { data: res } = await this.$http.get("business/health/history",{
                     params: this.queryMap
                 });
-                if(res.code!==200){
+                if(!res.success){
                     return this.$message.error("历史记录获取失败:" + res.msg);
                 }else {
                     this.historyTable=res.data.rows;
@@ -293,8 +292,8 @@
             },
             //今日是否已签到
             async isReport(){
-                const { data: res } = await this.$http.get("health/isReport");
-                if(res.code!==200){
+                const { data: res } = await this.$http.get("business/health/isReport");
+                if(!res.success){
                     return this.$message.error("今日健康报备检查错误:" + res.msg);
                 }else {
                     if(res.data){
@@ -322,10 +321,10 @@
                             "/" +
                             this.ruleForm.origin;
                         const { data: res } = await this.$http.post(
-                            "health/report",
+                            "business/health/report",
                             this.ruleForm
                         );
-                        if (res.code == 200) {
+                        if (res.success) {
                             this.reported=true;
                             this.ruleForm.createTime=this.nowTime;
                             this.$message.success("健康报备成功");

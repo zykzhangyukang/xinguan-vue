@@ -9,7 +9,7 @@
     <!-- 右侧卡片区域 -->
     <!-- 用户列表卡片区 -->
     <el-card class="box-card">
-      <el-form size="mini" :inline="true" :model="queryMap" class="demo-form-inline">
+      <el-form size="small" :inline="true" :model="queryMap" class="demo-form-inline">
         <el-form-item label="省市区县">
           <el-input v-model="queryMap.address" clearable @clear="search" placeholder="省市区县"></el-input>
         </el-form-item>

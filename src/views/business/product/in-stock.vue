@@ -9,7 +9,7 @@
         <!-- 卡片区域 -->
         <el-card>
             <!-- 搜索部分 -->
-            <el-form size="mini" :inline="true" :model="queryMap" class="demo-form-inline">
+            <el-form size="small" :inline="true" :model="queryMap" class="demo-form-inline">
                 <el-form-item label="类型">
                     <el-select  clearable  v-model="queryMap.type" placeholder="请选择入库类型">
                         <el-option label="捐赠" value="1"></el-option>
@@ -115,7 +115,7 @@
             </el-popconfirm>
                         </span>
                         <!--   给操作员使用的按钮(回收站)-->
-                        <span v-if="scope.row.status==1">
+                        <span v-if="scope.row.status===1">
                              <el-popconfirm
                                      @onConfirm="back(scope.row.id)"
                                      style="margin-left:10px;"

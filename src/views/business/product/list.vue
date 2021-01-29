@@ -18,20 +18,20 @@
             <el-row :gutter="6">
                 <el-col :span="5">
                     <el-cascader
-                            size="mini"
+                            size="small"
                             placeholder="请选择分类查询"
                             :change-on-select="true"
                             @change="selectChange"
                             v-model="categorykeys"
                             :props="searchSelectProps"
-                            :options="catetorys"
+                            :options="cateories"
                             clearable
                     ></el-cascader>
                 </el-col>
                 <el-col :span="6">
                     <el-input
                             clearable
-                            size="mini"
+                            size="small"
                             v-model="queryMap.name"
                             placeholder="请输入物资名称查询"
                             @clear="search"
@@ -40,7 +40,7 @@
                 </el-col>
                 <el-col :span="5">
                     <template>
-                        <el-select size="mini" v-model="queryMap.status" @click="search" placeholder="请选择状态">
+                        <el-select size="small" v-model="queryMap.status" @click="search" placeholder="请选择状态">
                             <el-option label="正常" :value="0"></el-option>
                             <el-option label="回收站" :value="1"></el-option>
                             <el-option label="待审核" :value="2"></el-option>
@@ -48,12 +48,12 @@
                     </template>
                 </el-col>
                 <el-col :span="8">
-                    <el-button size="mini" type="primary" icon="el-icon-search" @click="search">查找</el-button>
-                    <el-button size="mini" icon="el-icon-refresh-right" type="warning" @click="resetForm">重置</el-button>
-                    <el-button size="mini" type="success" icon="el-icon-circle-plus-outline" @click="openAdd"
+                    <el-button size="small" type="primary" icon="el-icon-search" @click="search">查找</el-button>
+                    <el-button size="small" icon="el-icon-refresh-right" type="warning" @click="resetForm">重置</el-button>
+                    <el-button size="small" type="success" icon="el-icon-circle-plus-outline" @click="openAdd"
                                v-hasPermission="'product:add'">添加
                     </el-button>
-                    <el-button size="mini" icon="el-icon-refresh" @click="getproductList">刷新</el-button>
+                    <el-button size="small" icon="el-icon-refresh" @click="getproductList">刷新</el-button>
                 </el-col>
             </el-row>
 
@@ -221,7 +221,7 @@
                 <div class="grid-content bg-purple">
                   <el-form-item label="分类" prop="categoryKeys">
                     <el-cascader
-                            :options="catetorys"
+                            :options="cateories"
                             clearable
                             filterable
                             :props="selectProps"
@@ -306,7 +306,7 @@
                 <div class="grid-content bg-purple">
                   <el-form-item label="分类" prop="categoryKeys">
                     <el-cascader
-                            :options="catetorys"
+                            :options="cateories"
                             clearable
                             filterable
                             :props="selectProps"
@@ -356,15 +356,14 @@
     export default {
         data() {
             return {
-                // uploadApi:'https://www.zykhome.club/api/system/upload/image',
-                uploadApi:'http://localhost:8081/upload/image',
+                uploadApi:this.BASE_API_URL+'system/upload/image',
                 btnLoading: false,
                 btnDisabled: false,
                 loading: true,
                 headerObject: {
                     Authorization: LocalStorage.get(LOCAL_KEY_XINGUAN_ACCESS_TOKEN)
                 }, //图片上传请求头
-                catetorys: [], //类别选择
+                cateories: [], //类别选择
                 selectProps: {
                     expandTrigger: "hover",
                     value: "id",
@@ -626,7 +625,7 @@
                 if (!res.success) {
                     return this.$message.error("获取物资类别失败");
                 } else {
-                    this.catetorys = res.data.rows;
+                    this.cateories = res.data.rows;
                 }
             },
             handleChange(file, fileList) {
